@@ -1,4 +1,5 @@
 import sys
+import os
 from PyQt5.QtWidgets import (QApplication, QWidget, QLabel, QLineEdit, 
                              QPushButton, QVBoxLayout, QCompleter, 
                              QHBoxLayout, QRadioButton, QButtonGroup, 
@@ -6,6 +7,13 @@ from PyQt5.QtWidgets import (QApplication, QWidget, QLabel, QLineEdit,
                              QToolBar, QAction, QMainWindow, QMenu, QGridLayout, QDialog)
 from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QPixmap, QIcon, QFont, QPainter, QBrush, QPainterPath
+
+def resource_path(relative_path):
+    if getattr(sys, "frozen", False):
+        base_path = getattr(sys, "_MEIPASS", os.path.dirname(sys.executable))
+    else:
+        base_path = os.path.dirname(os.path.abspath(__file__))
+    return os.path.join(base_path, relative_path)
 
 class MainWindow(QWidget):
     def __init__(self):
@@ -174,7 +182,7 @@ class MainWindow(QWidget):
 
     @staticmethod # defining a method to round the corners of the image
     def rounded_pixmap(path, radius):
-        pixmap = QPixmap(path)
+        pixmap = QPixmap(resource_path(path))
         rounded = QPixmap(pixmap.size())
         rounded.fill(Qt.transparent)
 
@@ -192,7 +200,7 @@ class IntermediatePage(QWidget):
     def __init__(self, parent_window):
         super().__init__()
         self.parent_window = parent_window
-        self.initital_pixmap = QPixmap("Pictures, icons//Intermediate_thumbnail.png")
+        self.initial_pixmap = QPixmap(resource_path("Pictures, icons//Intermediate_thumbnail.png"))
 
         self.setWindowTitle("Python Intermediate")
 
@@ -386,7 +394,7 @@ class IntermediatePage(QWidget):
     #-----------------show text content method---------------------------
     def show_text(self, file_path, topic):
         try:
-            with open(file_path, "r", encoding="utf-8") as file:
+            with open(resource_path(file_path), "r", encoding="utf-8") as file:
                 content = file.read()
         except FileNotFoundError:
             content = "Text file not found."
@@ -621,9 +629,10 @@ class BasicsPage(QMainWindow):
         self.back_btn.setObjectName("back")
         self.addtional_btn.setObjectName("additional")
 
+        bg_path = resource_path("Pictures, icons/GUI-background.png").replace("\\", "/")
         self.setStyleSheet("""
             QMainWindow{
-                           background-image: url("Pictures, icons/GUI-background.png");
+                           background-image: url("BG_IMAGE");
                            background-repeat: no-repeat;
                            background-position: center;
                            }
@@ -686,7 +695,7 @@ class BasicsPage(QMainWindow):
             QLabel{
                            color: #c9c9c5;
                            }
-""")
+""".replace("BG_IMAGE", bg_path))
 
         bottom_bar.addWidget(self.back_btn)
         bottom_bar.addStretch()
@@ -742,7 +751,7 @@ class BasicsPage(QMainWindow):
         self.header_label.setText(header)
         
         try:
-            with open(path, "r", encoding="utf-8") as f:
+            with open(resource_path(path), "r", encoding="utf-8") as f:
                 content = f.read()
         except FileNotFoundError:
             content = "Text file not found."
@@ -962,7 +971,7 @@ class ClassesAdvanced(QDialog):
         self.layout = QVBoxLayout()
         self.label = QLabel(f"This is the Class Inheritance window")
         self.image_label = QLabel(self)
-        self.initial_img = QPixmap("Pictures, icons//Classes_advanced.png")
+        self.initial_img = QPixmap(resource_path("Pictures, icons//Classes_advanced.png"))
         self.label.setAlignment(Qt.AlignCenter)
         self.image_label.setPixmap(self.initial_img)
 

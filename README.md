@@ -1,7 +1,7 @@
 ## Python Training Manual
 An interactive desktop guide for learning Python, built with `PyQt5`. Topics are split into three levels - Basics, Intermediate and Advanced - and explained through illustrated cheat sheets and short text lessons.
 
-This was one of my first PyQt5 projects, built by hand while learning from tutorials.
+This was one of my first PyQt5 projects, built mostly by hand while learning from tutorials.
 
 > **STATUS: Work in progress**. The Basics and Intermediate sections are mostly done; the Advanced section is still a skeleton.
 
@@ -44,9 +44,14 @@ pip install -r requirements.txt
 ```
 
 ## Usage
-Run the app from the project folder, since images and text lessons are loaded with paths relative to it:
+Start the app with:
 ```bash
 python Training_Manual.py
+```
+## Building the .exe (Windows)
+```bash
+pip install pyinstaller
+pyinstaller --noconfirm --windowed --name "Python Training Manual" --add-data "Pictures, icons;Pictures, icons" --add-data "Text_files;Text_files" Training_Manual.py
 ```
 
 ## Lincense
