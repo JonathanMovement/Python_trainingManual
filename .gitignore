@@ -1,0 +1,23 @@
+# --- Python ---
+__pycache__/
+*.py[cod]
+*.pyo
+ 
+# --- Virtual environments ---
+venv/
+.venv/
+env/
+ 
+# --- PyInstaller output ---
+build/
+dist/
+ 
+# --- Scratch files ---
+TextFile.txt
+ 
+# --- Editors / OS ---
+.vscode/
+.idea/
+Thumbs.db
+desktop.ini
+.DS_Store
